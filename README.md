@@ -11,3 +11,10 @@ first I will add a dummy esper project on which we can create our fraud detectio
 - java 7
 - esper 6.01
 - slf 4j
+
+
+# autor
+- ssaberi
+
+#contiburot
+- serkan54
