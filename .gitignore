@@ -13,7 +13,7 @@ Thumbs.db
 # Compiled Python files
 *.pyc
 
-# Compiled C++ files
+# Compiled java files
 *.out
 
 # Application specific files
