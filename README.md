@@ -1,2 +1,5 @@
 # EsperFraudDetection
-Repos for our course project.
+Repo for our course project.
+
+
+first I will add a dummy esper project on which we can create our fraud detection
