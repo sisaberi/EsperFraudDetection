@@ -3,7 +3,7 @@ package firstSample;
 import java.util.Date;
 
 /**
- * Created by siriHome on 11/04/2017.
+ * Created by sisaberi on 11/04/2017.
  */
 public class MyEventPojo {
 
