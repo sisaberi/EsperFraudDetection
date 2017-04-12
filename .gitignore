@@ -13,8 +13,8 @@ Thumbs.db
 # Compiled Python files
 *.pyc
 
-# Compiled C++ files
-*.out
+# Compiled java files
+.target/
 
 # Application specific files
 venv
