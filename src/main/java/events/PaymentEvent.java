@@ -11,12 +11,14 @@ public class PaymentEvent {
     double amount;
     String ipAddress;
     Date timestamp;
+    int userId;
 
-    public PaymentEvent(int id,double amount,String ipAddres, Date timestamp){
+    public PaymentEvent(int id,double amount,String ipAddres, Date timestamp, int userId){
         this.id=id;
         this.amount=amount;
         this.ipAddress=ipAddres;
         this.timestamp=timestamp;
+        this.userId=userId;
     }
 
 

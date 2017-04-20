@@ -32,8 +32,8 @@ public class MyEventClient {
 
         EPAdministrator cepAdm = cep.getEPAdministrator();
         EPStatement cepStatement = cepAdm.createEPL("select * from " +
-                "MyEvent(symbol='AAPL').win:length(2) " +
-                "having avg(price) > 6.0");
+                "MyEvent(symbol='AAPL').win:length(3) " +
+                "having avg(price) > 3.0");
 
         cepStatement.addListener(new CEPListener());
 
