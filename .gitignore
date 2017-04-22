@@ -16,6 +16,8 @@ Thumbs.db
 # Compiled java files
 .target/
 
+target/
+
 # Application specific files
 venv
 node_modules
