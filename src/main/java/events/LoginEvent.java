@@ -3,42 +3,32 @@ package events;
 import java.util.Date;
 
 /**
- * Created by sisaberi on 14/04/2017.
+ * Created by sisaberi on 19/04/2017.
  */
-public class PaymentEvent {
+public class LoginEvent {
 
     int id;
-
-
-
-    double amount;
     String ipAddress;
     Date timestamp;
     int userId;
 
-    public PaymentEvent(int id, double amount, String ipAddres, long timestamp, int userId) {
+    public LoginEvent(int id, String ipAddress, long timestamp, int userId) {
         this.id = id;
-        this.amount = amount;
-        this.ipAddress = ipAddres;
+        this.ipAddress = ipAddress;
         this.timestamp = new Date(timestamp);
         this.userId = userId;
     }
 
-
-    public String getIpAddress() {
-        return ipAddress;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public int getId() {
         return id;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
     public int getUserId() {
@@ -47,12 +37,14 @@ public class PaymentEvent {
 
     @Override
     public String toString() {
-        return "PaymentEvent{" +
+        return "LoginEvent{" +
                 "id=" + id +
-                ", amount=" + amount +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", timestamp=" + timestamp +
                 ", userId=" + userId +
                 '}';
     }
+
+
+
 }

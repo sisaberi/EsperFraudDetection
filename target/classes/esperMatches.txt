@@ -10,10 +10,3 @@ match_recognize (
   define
     B as A.ipAddress  !=  B.ipAddress
 )
-
-
-
-
-select * from pattern [every a=LoginEvent -> b=PaymentEvent(userId=a.userId) where timer:within(10 min)].win:time(1 hour)
-where a.ipAdress != b.ipAdress
-

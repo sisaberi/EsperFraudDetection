@@ -1,6 +1,10 @@
 package firstSample;
 
 import com.espertech.esper.client.*;
+import esperServices.LocationFraudListener;
+import events.LoginEvent;
+import events.PaymentEvent;
+import util.RandomEventGenerator;
 
 import java.util.Random;
 
@@ -23,22 +27,28 @@ public class MyEventClient {
     public static void main(String[] args) {
         System.out.println("im here");
         Configuration cepConfig = new Configuration();
-        System.out.println("im here 2");
+        System.out.println(MyEventPojo.class.getName());
 
-        cepConfig.addEventType("MyEvent", MyEventPojo.class.getName());
+
+        cepConfig.addEventType("LoginEvent", LoginEvent.class.getName());
+        cepConfig.addEventType("PaymentEvent", PaymentEvent.class.getName());
+
 
         EPServiceProvider cep = EPServiceProviderManager.getProvider("myCEPEngine", cepConfig);
         EPRuntime cepRT = cep.getEPRuntime();
 
+
+        String sampleQ = "select * \n" +
+                "from LoginEvent.win:time(10) as log, PaymentEvent.win:time(10) as pay\n" +
+                "where log.ipAddress != pay.ipAddress AND log.userId=pay.userId";
+
         EPAdministrator cepAdm = cep.getEPAdministrator();
-        EPStatement cepStatement = cepAdm.createEPL("select * from " +
-                "MyEvent(symbol='AAPL').win:length(2) " +
-                "having avg(price) > 6.0");
+        EPStatement cepStatement = cepAdm.createEPL(sampleQ);
 
-        cepStatement.addListener(new CEPListener());
+        cepStatement.addListener(new LocationFraudListener());
 
-        for (int i = 0; i < 5; i++) {
-            GenerateRandomEvent(cepRT);
+        for (int i = 0; i < 10; i++) {
+            RandomEventGenerator.GenerateRandomLoginAndPayment(cepRT);
         }
     }
 }
