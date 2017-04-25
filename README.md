@@ -13,6 +13,3 @@ first I will add a dummy esper project on which we can create our fraud detectio
 
 # author
 - ssaberi
-
-#contirbutor
-- serkan54
