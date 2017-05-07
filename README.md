@@ -1,15 +1,12 @@
 # EsperFraudDetection
-Repo for our course project.
-
-
-first I will add a dummy esper project on which we can create our fraud detection
+This is a Project for the course Data Analytics at University of Applied Science of Konstanz.
 
 
 
 # prequesites
-
-- java 7
+- java 8
 - mvn
 
-# author
-- ssaberi
+# authors
+- sisaberi
+- soennis
