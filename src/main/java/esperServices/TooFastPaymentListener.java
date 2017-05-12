@@ -1,15 +1,15 @@
-package firstSample;
+package esperServices;
 
 import com.espertech.esper.client.EventBean;
 import com.espertech.esper.client.UpdateListener;
 
 /**
- * Created by sisaberi on 11/04/2017.
+ * Created by sisaberi on 12/05/2017.
  */
-public class CEPListener implements UpdateListener {
+public class TooFastPaymentListener implements UpdateListener {
+
     public void update(EventBean[] newData, EventBean[] oldData) {
-        System.out.println("Event received: "
+        System.out.println("ToFastPayment fraud detected: "
                 + newData[0].getUnderlying());
     }
 }
-

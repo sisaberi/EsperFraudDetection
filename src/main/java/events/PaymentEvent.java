@@ -12,21 +12,21 @@ public class PaymentEvent {
 
 
     double amount;
-    String ipAddress;
+    String location;
     Date timestamp;
     int userId;
 
-    public PaymentEvent(int id, double amount, String ipAddres, long timestamp, int userId) {
+    public PaymentEvent(int id, double amount, String location, long timestamp, int userId) {
         this.id = id;
         this.amount = amount;
-        this.ipAddress = ipAddres;
+        this.location = location;
         this.timestamp = new Date(timestamp);
         this.userId = userId;
     }
 
 
-    public String getIpAddress() {
-        return ipAddress;
+    public String getLocation() {
+        return location;
     }
 
     public int getId() {
@@ -50,7 +50,7 @@ public class PaymentEvent {
         return "PaymentEvent{" +
                 "id=" + id +
                 ", amount=" + amount +
-                ", ipAddress='" + ipAddress + '\'' +
+                ", location='" + location + '\'' +
                 ", timestamp=" + timestamp +
                 ", userId=" + userId +
                 '}';
