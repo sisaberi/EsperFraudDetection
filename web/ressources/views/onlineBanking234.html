@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Banking</title>
+    <script src="../js/canvasjs.min.js"></script>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    <script type="text/javascript">
+        function manually(){
+            document.getElementById('location').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('timestamp').value = '';
+        }
+        function automatically(){
+            var countries = ['Germany','France','Italy','Switzerland','Austria','Belgium','Somalia','Russia','Poland','Portugal', 'Bulgaria'];
+            var randomCountry = Math.floor(Math.random() * countries.length);
+
+            document.getElementById('location').value = countries[randomCountry];
+
+            var random = Math.floor(Math.random()*(1000-1+1)+1);
+            document.getElementById('amount').value = random;
+            var current = new Date();
+            document.getElementById('timestamp').value = current.toLocaleString();
+
+        }
+        function startDetect(){
+        //window.onload = function ()
+            document.getElementById('dat').innerHTML = "";
+            var ausgabeData;
+            ausgabeData = "";
+
+
+            var dps = []; // dataPoints
+
+            var chart = new CanvasJS.Chart("chartContainer",{
+                backgroundColor: "black",
+                axisY:{
+                    labelFontColor: "#E0FFFF",
+                    gridColor: "#E0FFFF",
+                    gridThickness: 0,
+                    lineColor: "#E0FFFF"
+                },
+                axisX:{
+                    labelFontColor:"#E0FFFF",
+                    lineColor: "#E0FFFF"
+
+
+                },
+                title :{
+                    text: " ",
+                    fontColor:"#E0FFFF"
+                },
+                data: [{
+                    type: "splineArea",
+                    dataPoints: dps
+                }]
+            });
+
+            var xVal = 0;
+            var yVal = 0;
+            var xFraud = 0;
+            var xClear = 0;
+            var xValu = 1;
+            var updateInterval = 1500;
+            var dataLength = document.getElementById("chartlength").value; // number of dataPoints visible at any point
+            var updateChart = function (count) {
+                count = count || 1;
+                // count is number of times loop runs to generate random dataPoints.
+
+                for (var j = 0; j < count; j++) {
+                    yVal = Math.floor(Math.random()*(1000-1+1)+1);
+
+
+                    if(yVal>700){
+                        dps.push({
+                            x: xVal,
+                            y: yVal,
+                            color: "red"
+
+                        });
+                        xFraud++;
+                        ausgabeData = ausgabeData+"<font color='red'>------>FRAUD DETECTED: Überweisung: "+xValu+" Betrag: "+yVal+",- EUR<------</font><br>";
+                    }else{
+                        dps.push({
+                            x: xVal,
+                            y: yVal,
+
+                        });
+                        xClear++;
+                        ausgabeData = ausgabeData+"Überweisung: "+xValu+" Betrag: "+yVal+",- EUR<br>";
+
+                    }
+                    document.getElementById('dat').innerHTML = ausgabeData;
+                    xVal++;
+                    xValu = xVal + 1;
+                };
+
+                if (dps.length > dataLength)
+                {
+                    dps.shift();
+                }
+
+                chart.render();
+
+            };
+
+            // generates first set of dataPoints
+            //updateChart(dataLength);
+
+            // update chart after specified time.
+            setInterval(function(){updateChart()}, updateInterval);
+
+            var dps2= [];
+            var chart2 = new CanvasJS.Chart("chartContainer2",
+                {
+                    backgroundColor: "black",
+                    title:{
+                        text: "Prozentuale Überischt",
+                        fontColor:"#E0FFFF"
+                    },
+                    animationEnabled: true,
+                    theme: "theme2",
+                    data: [
+                        {
+                            type: "doughnut",
+                            indexLabelFontFamily: "Garamond",
+                            indexLabelFontSize: 20,
+                            startAngle:0,
+                            indexLabelFontColor: "dimgrey",
+                            indexLabelLineColor: "darkgrey",
+                            toolTipContent: "{y} %",
+
+                            dataPoints: dps2
+                        }
+                    ]
+                });
+            var updateChart2 = function () {
+
+                var frauds = xFraud / xValu;
+
+                var frauds2 = frauds * 100;
+                var clears2 = 100 - frauds2;
+
+            dps2.push({  y: 15, indexLabel: "Detected Frauds" },
+                {  y: 10, indexLabel: "clear Banking" });
+
+            chart2.render();
+            };
+            setInterval(function(){updateChart2()}, 5000);
+        }
+
+    </script>
+</head>
+<body style="background-color:black;">
+<div style="background:black">
+    <div>
+<h1 style="color:#E0FFFF">Online Banking</h1>
+<h2 style="color:#E0FFFF">Payment</h2>
+
+
+    <div style="height:300px;">
+        <div id="dat" style="position:absolute; right:5%;overflow: scroll;height: 250px;width: 45%; background-color:#E0FFFF">
+        </div>
+        <p style="color:#E0FFFF"">Payment Method: &nbsp;
+        <input type="radio" name="method" value="" onclick="manually()"> manually &nbsp;
+
+        <input type="radio" name="method" value="" onclick="automatically()"> automatically &nbsp;
+
+        <input type="radio" name="method" value=""> 50 random payments
+        </p><br>
+            <form method="post">
+
+                <div id="datetimepicker" class="input-append date">
+                    <label for="timestamp" style="color:#E0FFFF">timestamp <input type="text" id="timestamp"></input>
+                    <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+                </div>
+                <script type="text/javascript"
+                        src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+                </script>
+                <script type="text/javascript">
+                    $('#datetimepicker').datetimepicker({
+                        format: 'dd.mm.yyyy, hh:mm:ss',
+                        language: 'de-DE'
+                    });
+                </script><br>
+                <label for="location" style="color:#E0FFFF">location &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="location" name="location"/></label><br>
+                <label for="amount" style="color:#E0FFFF">amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="amount" name="amount"/></label>
+                <input type="hidden" id="userid" name="userid" value="545454"/>
+                <input type="button" value="submit" id="send"/>
+
+            </form><br><br><br><br><br><br>
+
+
+
+        </div>
+    <div style="height: 300px; width: 100%; background-color: black;">
+        <h2 style="color:#E0FFFF">Fraud Detection</h2>
+        <input id="chartlength" type="text"/>
+        <input type="button" value="start detection" onclick="startDetect()"/><br>
+        <div id="chartContainer" style="height: 300px; width: 100%;">
+
+        </div>
+    </div>
+        </div>
+
+
+</body>
+</html>
