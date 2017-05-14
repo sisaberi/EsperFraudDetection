@@ -58,10 +58,12 @@ public class RandomEventGenerator {
         System.out.println(lg.toString());
         //delay some time
 
-        int wait = generator.nextInt(1000000);
+        int wait = generator.nextInt(50000);
 
-        for (int i = 0; i < wait; i++) {
-            int x = i*2;
+        try {
+            Thread.sleep(wait);
+        } catch (InterruptedException e) {
+            System.out.println("This will never happen...");
         }
 
         //creating random payment

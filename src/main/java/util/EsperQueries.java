@@ -10,7 +10,7 @@ public class EsperQueries {
 
     public static String userSecondLocation = "Singen";
 
-    public static String userThirdLocation = "Keurzlingen";
+    public static String userThirdLocation = "Kreuzlingen";
 
     public static int minMilisAfterLogin = 10000;
 
