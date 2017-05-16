@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Banking</title>
+    <script src="../js/canvasjs.min.js"></script>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script src="../js/bankingfunctions.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+</head>
+<body style="background-color: black;">
+<div style="position: absolute; width:99%; height:99%; border-width: 1px; border-style: solid; border-color: white;">
+    <div style="position: absolute; top: 0%; left: 5%; width: 90%; height: 70px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
+        <h1>Online Banking - Fraud Detection</h1>
+    </div>
+    <div style="position: absolute; left: 5%; top: 10%; width: 90%; height: 301px; color: #E0FFFF; border-width: 1px; border-style: solid; border-color: white;">
+        <div style="position: absolute; top: 0%; left: 5%; width: 500px; height: 300px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
+            PAYMENT
+            <p style="color:#E0FFFF"">Payment Method: &nbsp;
+            <input type="radio" name="method" value="" onclick="manually()"> manually &nbsp;
+
+            <input type="radio" name="method" value="" onclick="automatically()"> automatically &nbsp;
+
+            <input type="radio" name="method" value=""> 50 random payments
+            </p><br>
+            <form method="post">
+
+                <div id="datetimepicker" class="input-append date">
+                    <label for="timestamp" style="color:#E0FFFF">timestamp <input type="text" id="timestamp"></input>
+                        <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+                </div>
+                <script type="text/javascript"
+                        src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+                </script>
+                <script type="text/javascript">
+                    $('#datetimepicker').datetimepicker({
+                        format: 'dd.mm.yyyy, hh:mm:ss',
+                        language: 'de-DE'
+                    });
+                </script><br>
+                <label for="location" style="color:#E0FFFF">location &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="location" name="location"/></label><br>
+                <label for="amount" style="color:#E0FFFF">amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="amount" name="amount"/></label>
+                <input type="hidden" id="userid" name="userid" value="545454"/><br>
+
+                <input type="button" onclick="startDetect()" value="submit" id="send"/> <input type="submit" value="reset"/>
+        </div>
+        <div style="position: absolute; top: 0%; right: 5%; width: 500px; height: 300px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
+            CEP DATA
+            <div id="dat" style="position:absolute; right:5%;overflow: scroll;height: 260px;width: 90%; background-color:#E0FFFF">
+            </div>
+        </div>
+    </div>
+    <div style="position: absolute; top: 51%; left: 5%; width: 90%; height: 315px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
+        CHART
+        <div id="chartContainer" style="position: absolute; height: 295px; width: 100%; background-color: #E0FFFF;">
+
+        </div>
+    </div>
+    </div>
+    <div style="position: absolute; bottom: 1%; width: 99%; height: 30px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
+        <div style="position: relative; left: 40%; color: #E0FFFF;border: 2px; bordorcolor: white;">&copy 2017 - HTWG Konstanz</div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
