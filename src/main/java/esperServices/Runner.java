@@ -18,11 +18,11 @@ public class Runner {
         cepConfig.addEventType("LoginEvent", LoginEvent.class.getName());
 
 
-
         EPServiceProvider cep = EPServiceProviderManager.getProvider("myCEPEngine", cepConfig);
         EPRuntime cepRT = cep.getEPRuntime();
 
-        runTooFastPaymentFraud(cepRT,cep);
+        runTooLocationFraudWithCompare(cepRT, cep);
+        runTooFastPaymentFraud(cepRT, cep);
 
         //runLocationFraud(cepRT,cep);
 
@@ -32,7 +32,7 @@ public class Runner {
 
     public static void runLocationFraud(EPRuntime cepRT, EPServiceProvider cep) {
         EPAdministrator cepAdm = cep.getEPAdministrator();
-        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.locationFraudQuery);
+        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.SIMPLE_LOCATION_FRAUD);
 
         cepStatement.addListener(new LocationFraudListener());
 
@@ -44,7 +44,7 @@ public class Runner {
 
     public static void runUnusualPaymentFraud(EPRuntime cepRT, EPServiceProvider cep) {
         EPAdministrator cepAdm = cep.getEPAdministrator();
-        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.unusualPaymentFraudQuery);
+        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.UNUSUAL_PAYMENT_FRAUD);
 
         cepStatement.addListener(new UnusualPaymentsFraud());
 
@@ -55,12 +55,23 @@ public class Runner {
 
     public static void runTooFastPaymentFraud(EPRuntime cepRT, EPServiceProvider cep) {
         EPAdministrator cepAdm = cep.getEPAdministrator();
-        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.tooFastPaymentFraudQuery);
+        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.TOO_FAST_PAYMENT_FRAUD);
 
         cepStatement.addListener(new TooFastPaymentListener());
 
         for (int i = 0; i < 100; i++) {
             RandomEventGenerator.GenerateRandomTooFastPaymentlong(cepRT);
+        }
+    }
+
+    public static void runTooLocationFraudWithCompare(EPRuntime cepRT, EPServiceProvider cep) {
+        EPAdministrator cepAdm = cep.getEPAdministrator();
+        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.ADVANCED_LOCATION_FRAUD);
+
+        cepStatement.addListener(new LocationFraudListenerWithCompare());
+
+        for (int i = 0; i < 100; i++) {
+            RandomEventGenerator.GenerateRandomLogins(cepRT);
         }
     }
 
