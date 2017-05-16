@@ -14,7 +14,7 @@ public class RandomEventGenerator {
     private static Random generator = new Random();
 
     private static String[]
-            locArray = {EsperQueries.userHomeTown, "FraudCity"};
+            locArray = {EsperQueries.USER_HOME_TOWN, "Hamburg","Köln","Zürich","Stuttgart"};
 
     public static void GenerateRandomLocationAndPayment(EPRuntime cepRT) {
         long timeStamp = System.currentTimeMillis();
@@ -77,5 +77,27 @@ public class RandomEventGenerator {
 
     }
 
+    public static void GenerateRandomLogins(EPRuntime cepRT) {
+        long timeStamp = System.currentTimeMillis();
+        int userId = generator.nextInt(100);
+        String ip2 = locArray[generator.nextInt(2)];
+
+        LoginEvent lg = new LoginEvent(1, ip2, timeStamp, userId);
+        cepRT.sendEvent(lg);
+        //delay some time
+
+        int wait = generator.nextInt(4000);
+
+        try {
+            Thread.sleep(wait);
+        } catch (InterruptedException e) {
+            System.out.println("This will never happen...");
+        }
+
+        long timeStamp1 = System.currentTimeMillis();
+        String ip3 = locArray[generator.nextInt(5)];
+        LoginEvent lg1 = new LoginEvent(1, ip3, timeStamp1, userId);
+        cepRT.sendEvent(lg1);
+    }
 
 }

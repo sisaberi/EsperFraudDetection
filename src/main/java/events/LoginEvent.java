@@ -8,13 +8,13 @@ import java.util.Date;
 public class LoginEvent {
 
     int id;
-    String ipAddress;
+    String location;
     Date timestamp;
     int userId;
 
-    public LoginEvent(int id, String ipAddress, long timestamp, int userId) {
+    public LoginEvent(int id, String location, long timestamp, int userId) {
         this.id = id;
-        this.ipAddress = ipAddress;
+        this.location = location;
         this.timestamp = new Date(timestamp);
         this.userId = userId;
     }
@@ -27,8 +27,8 @@ public class LoginEvent {
         return id;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public String getLocation() {
+        return location;
     }
 
     public int getUserId() {
@@ -39,12 +39,11 @@ public class LoginEvent {
     public String toString() {
         return "LoginEvent{" +
                 "id=" + id +
-                ", ipAddress='" + ipAddress + '\'' +
+                ", location='" + location + '\'' +
                 ", timestamp=" + timestamp +
                 ", userId=" + userId +
                 '}';
     }
-
 
 
 }

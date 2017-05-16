@@ -2,9 +2,7 @@ package esperServices;
 
 import com.espertech.esper.client.*;
 import events.PaymentEvent;
-import org.json.simple.JSONArray;
 import util.EsperQueries;
-import util.RandomEventGenerator;
 
 /**
  * Created by sisaberi on 12/05/2017.
@@ -18,7 +16,7 @@ public class EsperEndpoints {
     public static EPRuntime cepRT = cep.getEPRuntime();
 
     public static EPAdministrator cepAdm = cep.getEPAdministrator();
-    public static EPStatement cepStatement = cepAdm.createEPL(EsperQueries.unusualPaymentFraudQuery);
+    public static EPStatement cepStatement = cepAdm.createEPL(EsperQueries.UNUSUAL_PAYMENT_FRAUD);
 
 
     public static void runUnusualPaymentFraud() {
