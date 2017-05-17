@@ -35,15 +35,19 @@ public class RandomEventGenerator {
     public static void GenerateRandomPayment(EPRuntime cepRT) {
         long timeStamp = System.currentTimeMillis();
 
-        int userId = generator.nextInt(100);
+        int userId = generator.nextInt(5);
         //creating random payment
-        double amount = (double) generator.nextInt(1000);
+        double amount = (double) generator.nextInt(2000);
 
         String ip2 = locArray[generator.nextInt(2)];
 
         timeStamp = System.currentTimeMillis();
 
         PaymentEvent pm = new PaymentEvent(1, amount, ip2, timeStamp, userId);
+
+        System.out.println(pm.toString());
+
+
 
         cepRT.sendEvent(pm);
     }
