@@ -12,18 +12,16 @@
 </head>
 <body style="background-color: black;">
 <div style="position: absolute; width:99%; height:99%; border-width: 1px; border-style: solid; border-color: white;">
-    <div style="position: absolute; top: 0%; left: 5%; width: 90%; height: 70px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
-        <h1>Online Banking - Fraud Detection</h1>
+    <div style="position: absolute; top: 0%; left: 5%; width: 90%; height: 40px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
+        <h4>Online Banking - Fraud Detection</h4>
     </div>
-    <div style="position: absolute; left: 5%; top: 10%; width: 90%; height: 301px; color: #E0FFFF; border-width: 1px; border-style: solid; border-color: white;">
+    <div style="position: absolute; left: 5%; top: 6%; width: 90%; height: 301px; color: #E0FFFF; border-width: 1px; border-style: solid; border-color: white;">
         <div style="position: absolute; top: 0%; left: 5%; width: 500px; height: 300px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
             PAYMENT
             <p style="color:#E0FFFF"">Payment Method: &nbsp;
             <input type="radio" name="method" value="" onclick="manually()"> manually &nbsp;
 
             <input type="radio" name="method" value="" onclick="automatically()"> automatically &nbsp;
-
-            <input type="radio" name="method" value=""> 50 random payments
             </p><br>
             <form method="post">
 
@@ -55,7 +53,7 @@
                 <label for="amount" style="color:#E0FFFF">amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="amount" name="amount"/></label>
                 <input type="hidden" id="userid" name="userid" value="545454"/><br>
 
-                <input type="button" onclick="startDetect()" value="submit" id="send"/> <input type="submit" value="reset"/>
+                <input type="button" onclick="startDetect()" value="submit" id="addDataPoint"/> <input type="submit" value="reset"/>
         </div>
         <div style="position: absolute; top: 0%; right: 5%; width: 500px; height: 300px; color: #E0FFFF; background-color: black; border-width: 1px; border-style: solid; border-color: white;">
             CEP DATA
