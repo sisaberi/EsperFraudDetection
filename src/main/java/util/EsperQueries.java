@@ -12,7 +12,9 @@ public class EsperQueries {
 
     public static String USER_THIRD_LOCATION = "Kreuzlingen";
 
-    public static int MIN_MILLIS_AFTER_LOGIN = 10000;
+    public static int MIN_MILLIS_AFTER_LOGIN = 5000;
+
+    public static int MIN_MILLIS_AFTER_LOCATION_CHANGE=5000;
 
     public static double ALL_TIME_PAYMENT_AVG = 500;
 
@@ -29,8 +31,8 @@ public class EsperQueries {
     public static String ADVANCED_LOCATION_FRAUD = "select *" +
             "from pattern [every (l1=LoginEvent->l2=LoginEvent" +
             "(l1.userId=l2.userId AND l1.location != l2.location " +
-            "AND l2.timestamp.toMillisec()-l1.timestamp.toMillisec()<"
-            +TravelTimeCalculator.getMinTravelTimeBetweenLocations()+ ")]";
+            "AND l2.timestamp.toMillisec()-l1.timestamp.toMillisec()<="
+            +MIN_MILLIS_AFTER_LOCATION_CHANGE+ "))]";
 
 
 

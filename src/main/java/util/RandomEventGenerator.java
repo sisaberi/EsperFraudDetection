@@ -14,7 +14,7 @@ public class RandomEventGenerator {
     private static Random generator = new Random();
 
     private static String[]
-            locArray = {EsperQueries.USER_HOME_TOWN, "Hamburg","Köln","Zürich","Stuttgart"};
+            locArray = {EsperQueries.USER_HOME_TOWN, EsperQueries.USER_HOME_TOWN,EsperQueries.USER_HOME_TOWN,"Moskau","Buenos Aires"};
 
     public static void GenerateRandomLocationAndPayment(EPRuntime cepRT) {
         long timeStamp = System.currentTimeMillis();
@@ -49,7 +49,7 @@ public class RandomEventGenerator {
     }
 
 
-    public static void GenerateRandomTooFastPaymentlong(EPRuntime cepRT) {
+    public static void GenerateRandomTooFastPaymentlong(EPRuntime cepRT,int i) {
         long timeStamp = System.currentTimeMillis();
         int userId = generator.nextInt(100);
         LoginEvent lg = new LoginEvent(1, "bla", timeStamp, userId);
@@ -58,7 +58,7 @@ public class RandomEventGenerator {
         System.out.println(lg.toString());
         //delay some time
 
-        int wait = generator.nextInt(50000);
+        int wait = generator.nextInt(10000);
 
         try {
             Thread.sleep(wait);
@@ -69,7 +69,7 @@ public class RandomEventGenerator {
         //creating random payment
         double amount = (double) generator.nextInt(10);
         timeStamp = System.currentTimeMillis();
-        PaymentEvent pm = new PaymentEvent(1, amount, "bla2", timeStamp, userId);
+        PaymentEvent pm = new PaymentEvent(i, amount, "bla2", timeStamp, userId);
 
         System.out.println(pm.toString());
 
@@ -78,26 +78,22 @@ public class RandomEventGenerator {
     }
 
     public static void GenerateRandomLogins(EPRuntime cepRT) {
-        long timeStamp = System.currentTimeMillis();
-        int userId = generator.nextInt(100);
-        String ip2 = locArray[generator.nextInt(2)];
 
-        LoginEvent lg = new LoginEvent(1, ip2, timeStamp, userId);
-        cepRT.sendEvent(lg);
-        //delay some time
-
-        int wait = generator.nextInt(4000);
+        int wait = generator.nextInt(5000);
 
         try {
             Thread.sleep(wait);
         } catch (InterruptedException e) {
             System.out.println("This will never happen...");
         }
+        long timeStamp = System.currentTimeMillis();
+        int userId = generator.nextInt(100);
+        String ip2 = locArray[generator.nextInt(5)];
 
-        long timeStamp1 = System.currentTimeMillis();
-        String ip3 = locArray[generator.nextInt(5)];
-        LoginEvent lg1 = new LoginEvent(1, ip3, timeStamp1, userId);
-        cepRT.sendEvent(lg1);
+        LoginEvent lg = new LoginEvent(1, ip2, timeStamp, 40);
+        System.out.println(lg.toString());
+        cepRT.sendEvent(lg);
+        //delay some time
     }
 
 }
