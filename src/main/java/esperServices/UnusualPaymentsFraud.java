@@ -13,7 +13,6 @@ public class UnusualPaymentsFraud implements UpdateListener {
 
         System.out.println("User has surpassed his avg payment: "
                 + s);
-
     }
 
 }

@@ -18,6 +18,9 @@ public class EsperQueries {
 
     public static double ALL_TIME_PAYMENT_AVG = 500;
 
+    public static double DAILY_PAYMENT_LIMIT = 2000;
+
+
     public static int MAX_PAYMENTS_IN_TIME_FRAME = 10;
 
 
@@ -40,6 +43,14 @@ public class EsperQueries {
             "from PaymentEvent.win:length(5)" +
             "group by userId \n" +
             "having avg(amount)>" + ALL_TIME_PAYMENT_AVG;
+
+
+
+
+    public static String DAILY_LIMIT_EXCEEDED = "select userId,SUM(amount) " +
+            "from PaymentEvent.win:time(1 day) " +
+            "GROUP BY userId,timestamp.toDate() " +
+            "having SUM(amount)>"+DAILY_PAYMENT_LIMIT;
 
 
 

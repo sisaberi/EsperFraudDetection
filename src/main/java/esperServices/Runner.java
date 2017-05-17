@@ -21,8 +21,10 @@ public class Runner {
         EPServiceProvider cep = EPServiceProviderManager.getProvider("myCEPEngine", cepConfig);
         EPRuntime cepRT = cep.getEPRuntime();
 
+
+        runDailyLimitFraud(cepRT, cep);
         //runTooLocationFraudWithCompare(cepRT, cep);
-        runTooFastPaymentFraud(cepRT, cep);
+        //runTooFastPaymentFraud(cepRT, cep);
 
         //runLocationFraud(cepRT,cep);
 
@@ -60,7 +62,7 @@ public class Runner {
         cepStatement.addListener(new TooFastPaymentListener());
 
         for (int i = 0; i < 100; i++) {
-            RandomEventGenerator.GenerateRandomTooFastPaymentlong(cepRT,i);
+            RandomEventGenerator.GenerateRandomTooFastPaymentlong(cepRT, i);
         }
     }
 
@@ -72,6 +74,18 @@ public class Runner {
 
         for (int i = 0; i < 100; i++) {
             RandomEventGenerator.GenerateRandomLogins(cepRT);
+        }
+    }
+
+
+    public static void runDailyLimitFraud(EPRuntime cepRT, EPServiceProvider cep) {
+        EPAdministrator cepAdm = cep.getEPAdministrator();
+        EPStatement cepStatement = cepAdm.createEPL(EsperQueries.DAILY_LIMIT_EXCEEDED);
+
+        cepStatement.addListener(new DailyPaymentLimitListener());
+
+        for (int i = 0; i < 1000; i++) {
+            RandomEventGenerator.GenerateRandomPayment(cepRT);
         }
     }
 
