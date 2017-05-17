@@ -21,7 +21,7 @@ public class Runner {
         EPServiceProvider cep = EPServiceProviderManager.getProvider("myCEPEngine", cepConfig);
         EPRuntime cepRT = cep.getEPRuntime();
 
-        runTooLocationFraudWithCompare(cepRT, cep);
+        //runTooLocationFraudWithCompare(cepRT, cep);
         runTooFastPaymentFraud(cepRT, cep);
 
         //runLocationFraud(cepRT,cep);
@@ -60,7 +60,7 @@ public class Runner {
         cepStatement.addListener(new TooFastPaymentListener());
 
         for (int i = 0; i < 100; i++) {
-            RandomEventGenerator.GenerateRandomTooFastPaymentlong(cepRT);
+            RandomEventGenerator.GenerateRandomTooFastPaymentlong(cepRT,i);
         }
     }
 

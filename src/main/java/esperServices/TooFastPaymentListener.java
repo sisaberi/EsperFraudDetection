@@ -9,7 +9,18 @@ import com.espertech.esper.client.UpdateListener;
 public class TooFastPaymentListener implements UpdateListener {
 
     public void update(EventBean[] newData, EventBean[] oldData) {
-        System.out.println("ToFastPayment fraud detected: "
-                + newData[0].getUnderlying());
+
+        System.out.println("**********************************");
+        System.out.println("***ToFastPayment fraud detected***");
+        System.out.println("*************Login****************");
+        System.out.println("***"+newData[0].get("l")+"***");
+        System.out.println("*************Payment**************");
+        System.out.println("***"+newData[0].get("p")+"***");
+        System.out.println("**********************************");
+
+
+
+
+
     }
 }
