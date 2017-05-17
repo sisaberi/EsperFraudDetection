@@ -5,19 +5,24 @@ var date = "";
 var locationCountry = "";
 var xValu = 1;
 var dataLength = 5; // number of dataPoints visible at any point
+
+var dailyPaymentsArray = [0];
+
 function manually(){
     document.getElementById('location').value = '';
     document.getElementById('amount').value = '';
     document.getElementById('timestamp').value = '';
 }
 function automatically(){
-    var countries = ['Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','France','Italy','Switzerland','Austria','Belgium','Somalia','Russia','Poland','Portugal', 'Bulgaria'];
+    var countries = ['Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','Germany','France','Italy','Switzerland','Austria','Belgium','Somalia','Somalia','Somalia','Russia','Russia','Russia','Poland','Poland','Poland','Portugal', 'Bulgaria'];
     var randomCountry = Math.floor(Math.random() * countries.length);
 
     locationCountry = document.getElementById('location').value = countries[randomCountry];
 
-    var random = Math.floor(Math.random()*(1000-1+1)+1);
-    document.getElementById('amount').value = random;
+    //var random = Math.floor(Math.random()*(1000-1+1)+1);
+    var amountsArray = [50,25,17,450,500,287,666,701,750,1000,2001,2020,2310];
+    var random2 = Math.floor(Math.random() * amountsArray.length);
+    document.getElementById('amount').value = amountsArray[random2];
     var current = new Date();
     date = document.getElementById('timestamp').value = current.toLocaleString();
 }
@@ -38,8 +43,8 @@ var xVal = 0;
                 lineColor: "#E0FFFF"
             },
             axisX: {
-                labelFontColor: "#E0FFFF",
-                lineColor: "#E0FFFF"
+                labelFontColor: "black",
+                lineColor: "black"
 
 
             },
@@ -54,47 +59,62 @@ var xVal = 0;
         });
     chart.render();
         var amounts = 0;
-        //var ausgabeData = "";
 
         var ausgabeData = "";
         $("#addDataPoint").click(function () {
-
+            setTimeout(function(){
             var length = chart.options.data[0].dataPoints.length;
+            var newAmounts = document.getElementById('amount').value;
+            var newDate = document.getElementById('timestamp').value;
+            var newCountry = document.getElementById('location').value;
 
+            dailyPaymentsArray.push(newAmounts);
 
-            amounts = document.getElementById('amount').value;
             xVal++;
-            var a = parseInt(amounts);
-            if (a > 700){
+            var a = parseInt(newAmounts);
+
+            if (getSumOfArray() > 2000){
                 chart.options.data[0].dataPoints.push({
                     y: a,
+                    x: xValu,
                     color: "red"
                 });
-                ausgabeData = ausgabeData + "<font color='red'>&nbsp;&nbsp;&nbsp;------>DETECTED FRAUD: daily paymentlimit exceeded: payment: " + xValu + " amount: " + a + ",- EUR date: "+ date +" location: "+ locationCountry +"<------</font><br>";
+                ausgabeData = ausgabeData + "<font color='red'>&nbsp;&nbsp;&nbsp;------>DETECTED FRAUD: daily payment limit of 2000,- EUR exceeded: " + getSumOfArray() + " payment: " + xValu + " amount: " + a + ",- EUR date: "+ newDate +" location: "+ newCountry +"<------</font><br>";
             } else if (locationCountry == "Bulgaria" || locationCountry == "Russia" || locationCountry == "Somalia") {
                 chart.options.data[0].dataPoints.push({
                     y: a,
+                    x: xValu,
                     color: "red"
                 });
-    ausgabeData = ausgabeData + "<font color='red'>&nbsp;&nbsp;&nbsp;------>DETECTED FRAUD: unusual location: payment: " + xValu + " amount: " + a + ",- EUR date: " + date + " location: " + locationCountry + "<------</font><br>";
+    ausgabeData = ausgabeData + "<font color='red'>&nbsp;&nbsp;&nbsp;------>DETECTED FRAUD: unusual location: payment: " + xValu + " amount: " + a + ",- EUR date: " + newDate + " location: " + newCountry + "<------</font><br>";
 } else {
     chart.options.data[0].dataPoints.push({
         y: a,
+        x: xValu,
     });
-    ausgabeData = ausgabeData + "<font color='black'>&nbsp;&nbsp;&nbsp;payment: " + xValu + " amount: " + a + ",- EUR date: " + date + " location: " + locationCountry + "</font><br>";
+    ausgabeData = ausgabeData + "<font color='black'>&nbsp;&nbsp;&nbsp;payment: " + xValu + " amount: " + a + ",- EUR date: " + newDate + " location: " + newCountry + "</font><br>";
 }
             document.getElementById('dat').innerHTML = ausgabeData;
            /*
            if (dps.length > dataLength) {
                 dps.shift();
-            }
-            */
+            }*/
             chart.render();
 
-            xValu++;
+            xValu++;},Math.floor(Math.random()*(3000-2000+2000)+2000));
         });
 
+
     }
+    function getSumOfArray() {
+        var sum1 =0;
+        var sum = parseInt(sum1);
+        for(i=0;i<dailyPaymentsArray.length;i++){
+            sum +=parseInt(dailyPaymentsArray[i]);
+        }
+        return sum;
+    }
+
     function startDetect(){
     /*var ausgabeData = "";
     var yVal = 0;
